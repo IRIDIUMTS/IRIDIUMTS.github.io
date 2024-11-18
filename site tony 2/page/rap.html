@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <title>Mon Fan Club</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../index.css"/>
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="../js.js"></script>
+    <style>
+        body {
+            background: linear-gradient(white, blue, red);
+            min-height: 100vh; 
+            margin: 0; 
+        }
+        .encadre-degrade {
+            background: linear-gradient(to bottom, #ff99cc, #ffffff);
+            padding: 20px;
+            border: 2px solid #ff99cc;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .utilisateur td, .utilisateur th { text-align: center; vertical-align: middle; background-color: #00fff0 !important; }
+        .correction td, .correction th { text-align: center; vertical-align: middle; background-color: green !important; }
+        #imageContainer img { width: 100px; margin: 10px; cursor: pointer; }
+        #imageContainer { display: flex; justify-content: space-around; margin-top: 20px; flex-wrap: wrap; }
+        .table-title { text-align: center; font-weight: bold; color: #00bfff; /* Bleu ciel */ }
+        .selected { border: 2px solid #00bfff; box-shadow: 0px 0px 10px #00bfff; }
+        .image-title { font-size: 14px; color: white; margin-top: 5px; }
+        .image-item { text-align: center; margin: 10px; }
+        .validate-btn { margin-top: 20px; text-align: center; }
+        .table-container { display: flex; justify-content: space-between; }
+        .hidden { display: none; }
+        .table-comparison { background-color: #28a745; }
+    </style>
+    <script>
+
+        let selectedImage = null;
+        let userRanking = [];
+        function selectImage(event) {
+            if (selectedImage) {
+                selectedImage.classList.remove("selected");
+            }
+            selectedImage = event.target;
+            selectedImage.classList.add("selected");
+        }
+
+        function placeImage(event, rowId) {
+            if (selectedImage) {
+                const cell = event.currentTarget;
+
+
+                const existingImage = cell.querySelector('img');
+                
+                if (existingImage) {
+                    const originalContainer = existingImage.dataset.originalContainer;
+                    if (originalContainer) {
+                        const container = document.querySelector(originalContainer);
+                        container.appendChild(existingImage);  
+                    }
+                }
+
+                cell.innerHTML = "";  
+                cell.appendChild(selectedImage);  
+
+                selectedImage.dataset.originalContainer = selectedImage.parentElement.id;
+
+                const imageTitle = selectedImage.alt;
+                document.getElementById("title" + rowId).textContent = "Top " + rowId + ": " + imageTitle;
+
+                selectedImage = null;
+            }
+        }
+
+        function validateRanking() {
+            const correctRanking = ["Ziak", "Davodka", "Freeze Corleone", "Niska", "Gazo"];
+            let score = 0;
+            const rows = document.querySelectorAll('.table-title'); 
+
+            rows.forEach((row, index) => {
+                const userChoice = row.textContent.split(": ")[1]; 
+
+                if (userChoice === correctRanking[index]) {
+                    score += 2; 
+                } else if (correctRanking.includes(userChoice)) {
+                    score += 1; 
+                }
+            });
+
+            afficherScore(score);
+        }
+
+        function afficherScore(score) {
+            const scoreText = document.getElementById('scoreText');
+            const scoreImage = document.getElementById('scoreImage');
+            const scoreText2 = document.getElementById('scoreText2');
+            const scoreElement = document.getElementById('score');
+
+            if (score >= 5) {
+                scoreText.textContent = "Ça se voit que tu as de vrais goûts musicaux.";
+                scoreImage.src = "../image/alerte/explosion.png";
+                scoreElement.textContent = "Tu as obtenu : " + score + "/5"; 
+                scoreText2.textContent = "BRAVOOOO, Tu es maintenant chargé de faire le DJ dans ma voiture";
+            } else if (score >= 3) {
+                scoreText.textContent = "Ça se voit que tu as de vrais goûts musicaux.";
+                scoreImage.src = "../image/alerte/etoile.png";
+                scoreElement.textContent = "Tu as obtenu : " + score + "/5"; 
+                scoreText2.textContent = "Tu gagnes le droit de gérer le son dans ma voiture.";
+            } else {
+                scoreText.textContent = "HHHmmmmmHHH";
+                scoreImage.src = "../image/alerte/poucerouge.png";
+                scoreElement.textContent = "Tu as obtenu : " + score + "/5"; 
+                scoreText2.textContent = "Je te laisserai mettre QU'UNE SEULE musique sur le trajet, choisis-la bien.";
+            }
+
+            $('#scoreModal').modal('show');
+            $('.table-container').removeClass('hidden');
+        }
+    </script>
+</head>
+<body>  
+    <header class="container">
+        <div class="shadow-lg w-100 p-3 fs-3 mb-2 bg-gradient rounded d-flex justify-content-center align-items-center position-relative" style="height: 100px; background-color: #00f5ff;">
+          <span class="text-gradient">MON FAN CLUB</span>
+          <button class="btn btn-primary position-absolute" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="left: 10px; background-color: #00f5ff;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2 2h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2zm0 5h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2zm0 5h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2z"/>
+            </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModalLabel">WEEEEEEHHHHHH LA FAMMMMMILLLLLEE</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="validatePassword(event)"> 
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
+                                <label class="form-check-label" for="showPassword">Pour les Dyspraxiques</label>
+                            </div>
+                        </div>
+                        <div id="error-message" class="text-danger d-none"></div> 
+                            <button type="submit" class="btn btn-primary">RENTRE VITE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+      <!-- Modal pour afficher le score -->
+    <div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scoreModalLabel">Ton Score</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="scoreImage" src="" alt="Image de Score" style="width: 100px;">
+                    <p id="scoreText"></p>
+                    <p id="scoreText2"></p>
+                    <p id="score"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <center><h4>Mes réseaux sociaux</h4></center>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column align-items-center">
+          <button type="button" class="btn btn-index mb-3" onclick="window.location.href='../index.html'" style="margin-top: 30px;">Acceuil</button>
+          <button type="button" class="btn btn-instagram mb-3" onclick="window.location.href='instagram.html'" style="margin-top: 30px;">Instagram</button>
+          <button type="button" class="btn btn-snapchat mb-3" onclick="window.location.href='snapchat.html'" style="margin-top: 30px;">Snapchat</button>
+          <button type="button" class="btn btn-facebook mb-3" onclick="window.location.href='facebook.html'" style="margin-top: 30px;">Facebook</button>
+          <button type="button" class="btn btn-bereal mb-3" onclick="window.location.href='bereal.html'" style="margin-top: 30px;">BeReal</button>
+          <button type="button" class="btn btn-discord mb-3" onclick="window.location.href='discord.html'" style="margin-top: 30px;">Discord</button>
+          <button type="button" class="btn btn-tiktok mb-3" onclick="window.location.href='tiktok.html'" style="margin-top: 30px;">TikTok</button>
+          <button type="button" class="btn btn-admin mb-3" data-bs-toggle="modal" data-bs-target="#formModal" style="margin-top: 30px;">⚠️Que pour les vip du vip⚠️</button>
+        </div>
+    </div>
+
+    <main class="container mt-5">
+        <h3 class="text-center">Clique sur le rappeur puis dans la ligne où tu veux le mettre</h3>
+
+        <!-- Bouton Valider -->
+        <div class="validate-btn">
+            <button class="btn btn-primary" onclick="validateRanking()">Valider</button>
+        </div>
+
+        <table class="table table-bordered text-center utilisateur">
+            <tbody>
+                <!-- Lignes du tableau avec titres dynamiques -->
+                <tr>
+                    <td colspan="1" class="table-title" id="title1">Top 1: </td>
+                </tr>
+                <tr>
+                    <td onclick="placeImage(event, 1)" style="width: 100px; height: 100px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="table-title" id="title2">Top 2: </td>
+                </tr>
+                <tr>
+                    <td onclick="placeImage(event, 2)" style="width: 100px; height: 100px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="table-title" id="title3">Top 3: </td>
+                </tr>
+                <tr>
+                    <td onclick="placeImage(event, 3)" style="width: 100px; height: 100px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="table-title" id="title4">Top 4: </td>
+                </tr>
+                <tr>
+                    <td onclick="placeImage(event, 4)" style="width: 100px; height: 100px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="table-title" id="title5">Top 5: </td>
+                </tr>
+                <tr>
+                    <td onclick="placeImage(event, 5)" style="width: 100px; height: 100px;"></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div id="comparisonTable" class="table-container hidden">
+            <table class="table table-bordered text-center table-comparison correction">
+                <tbody>
+                    <tr>
+                        <td colspan="1" class="table-title" id="title1">Top 1: Ziak </td>
+                    </tr>
+                    <tr>
+                        <td><img src="../image/rap/Ziak.jpg" style="width: 100px; height: 100px;" alt="Ziak"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="table-title" id="title2">Top 2: Davodka </td>
+                    </tr>
+                    <tr>
+                        <td><img src="../image/rap/Davodka.jpg" style="width: 100px; height: 100px;" alt="Davodka"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="table-title" id="title3">Top 3: Freeze Corleone </td>
+                    </tr>
+                    <tr>
+                        <td><img src="../image/rap/Freeze Corleone.jpg" style="width: 100px; height: 100px;" alt="Freeze Corleone"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="table-title" id="title4">Top 4: Niska </td>
+                    </tr>
+                    <tr>
+                        <td><img src="../image/rap/Niska.jpg" style="width: 100px; height: 100px;" alt="Niska"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" class="table-title" id="title5">Top 5: Gazo </td>
+                    </tr>
+                    <tr>
+                        <td><img src="../image/rap/Gazo.jpg" style="width: 100px; height: 100px;" alt="Gazo"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div id="imageContainer">
+            <div class="image-item">
+                <img src="../image/rap/damso.jpg" alt="Damso" onclick="selectImage(event)" >
+                <div class="image-title">Damso</div>
+            </div>
+            <div class="image-item">
+                <img id="img2" src="../image/rap/Gazo.jpg" alt="Gazo" onclick="selectImage(event)" >
+                <div class="image-title">Gazo</div>
+            </div>
+            <div class="image-item">
+                <img id="img3" src="../image/rap/Bolemvn.jpg" alt="Bolémvn" onclick="selectImage(event)" >
+                <div class="image-title">Bolémvn</div>
+            </div>
+            <div class="image-item">
+                <img id="img4" src="../image/rap/ziak.jpg" alt="Ziak" onclick="selectImage(event)" >
+                <div class="image-title">Ziak</div>
+            </div>
+            <div class="image-item">
+                <img id="img5" src="../image/rap/Booba.jpg" alt="Booba" onclick="selectImage(event)" >
+                <div class="image-title">Booba</div>
+            </div>
+            <div class="image-item">
+                <img id="img6" src="../image/rap/Central Cee.jpg" alt="Central Cee" onclick="selectImage(event)" >
+                <div class="image-title">Central Cee</div>
+            </div>
+            <div class="image-item">
+                <img id="img7" src="../image/rap/Dadju.jpg" alt="Dadju" onclick="selectImage(event)" >
+                <div class="image-title">Dadju</div>
+            </div>
+            <div class="image-item">
+                <img id="img8" src="../image/rap/Davodka.jpg" alt="Davodka" onclick="selectImage(event)">
+                <div class="image-title">Davodka</div>
+            </div>
+            <div class="image-item">
+                <img id="img9" src="../image/rap/Gradur.jpg" alt="Gradur" onclick="selectImage(event)" >
+                <div class="image-title">Gradur</div>
+            </div>
+            <div class="image-item">
+                <img id="img10" src="../image/rap/jokair.jpg" alt="Jok'air" onclick="selectImage(event)" >
+                <div class="image-title">Jok'air</div>
+            </div>
+            <div class="image-item">
+                <img id="img11" src="../image/rap/Jul.jpg" alt="jul" onclick="selectImage(event)" >
+                <div class="image-title">Jul</div>
+            </div>
+            <div class="image-item">
+                <img id="img12" src="../image/rap/Ninho.jpg" alt="Ninho" onclick="selectImage(event)" >
+                <div class="image-title">Ninho</div>
+            </div>
+            <div class="image-item">
+                <img id="img13" src="../image/rap/Koba la D.jpg" alt="Koba la D" onclick="selectImage(event)" >
+                <div class="image-title">Koba la D</div>
+            </div>
+            <div class="image-item">
+                <img id="img14" src="../image/rap/Lomepal.jpg" alt="Lomepal" onclick="selectImage(event)" >
+                <div class="image-title">Lomepal</div>
+            </div>
+            <div class="image-item">
+                <img id="img15" src="../image/rap/Nekfeu.jpg" alt="Nekfeu" onclick="selectImage(event)" >
+                <div class="image-title">Nekfeu</div>
+            </div>
+            <div class="image-item">
+                <img id="img16" src="../image/rap/Orelsan.jpg" alt="Orelsan" onclick="selectImage(event)" >
+                <div class="image-title">Orelsan</div>
+            </div>
+            <div class="image-item">
+                <img id="img17" src="../image/rap/Niska.jpg" alt="Niska" onclick="selectImage(event)" >
+                <div class="image-title">Niska</div>
+            </div>
+            <div class="image-item">
+                <img id="img18" src="../image/rap/PLK.jpg" alt="PLK" onclick="selectImage(event)" >
+                <div class="image-title">PLK</div>
+            </div>
+            <div class="image-item">
+                <img id="img19" src="../image/rap/SCH.jpg" alt="SCH" onclick="selectImage(event)" >
+                <div class="image-title">SCH</div>
+            </div>
+            <div class="image-item">
+                <img id="img20" src="../image/rap/Freeze Corleone.jpg" alt="Freeze Corleone" onclick="selectImage(event)" >
+                <div class="image-title">Freeze Corleone</div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

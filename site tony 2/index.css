@@ -1,0 +1,235 @@
+
+
+.border-animated {
+  position: relative;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 300px; /* Fixe la largeur maximale */
+}
+
+.btn-primary {
+  background-color: #00f5ff; /* Couleur du bouton */
+  border-color: #00f5ff; /* Couleur de la bordure si elle est visible */
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.border-animated::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  padding: 2px;
+  background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+  background-size: 400%;
+  animation: borderAnimation 4s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}
+
+@keyframes borderAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+
+.btn-instagram {
+  background: linear-gradient(-45deg, yellow, red, violet);
+  color: white; /* Couleur du texte */
+}
+
+/* Bouton Snapchat */
+.btn-snapchat {
+  background-color: yellow;
+  color: black; /* Couleur du texte */
+}
+
+/* Bouton Facebook */
+.btn-facebook {
+  background-color: #0046ff;
+  color: white; /* Couleur du texte */
+}
+
+/* Bouton BeReal */
+.btn-bereal {
+  background-color: black;
+  color: white; /* Couleur du texte */
+}
+
+/* Bouton Discord */
+.btn-discord {
+  background-color: #00aaff;
+  color: white;
+}
+
+/* Bouton TikTok */
+.btn-tiktok {
+  background-color: black;
+  color: #ff0061;
+}
+
+/* Bouton admin */
+.btn-admin {
+  background-color: red;
+  color: black;
+}
+
+.btn-index {
+  background: linear-gradient( white, blue, red);
+  color: white;
+}
+
+.image-uniforme {
+  width: 250px; /* Ajuste la largeur selon tes besoins */
+  height: 250px; /* Ajuste la hauteur pour garder une forme carrée */
+  object-fit: cover; /* Remplit le cadre sans déformer l'image */
+}
+
+.image-centered-bottom {
+  bottom: 0; /* Fixe la position à 0 depuis le bas */
+  left: 50%; /* Centre horizontalement */
+  width: 150px; /* Ajuste la taille selon tes besoins */
+  height: auto;
+}
+
+
+.thought-container {
+  position: relative;
+  display: inline-block;
+}
+
+.main-image {
+  width: 150px; /* Taille de l'image principale */
+  border-radius: 50%; /* Rendre l'image circulaire si nécessaire */
+}
+
+.thought-container {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.main-image {
+  width: 150px; /* Taille de l'image principale */
+  border-radius: 50%; /* Rendre l'image circulaire si nécessaire */
+  margin-top: 80px; /* Ajoute de l'espace pour les bulles */
+}
+
+.bubble-container {
+  position: absolute;
+  top: -10px; /* Positionne l'arc plus haut */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-around;
+  width: 450px; /* Ajuste la largeur pour agrandir l'arc */
+}
+
+.thought-bubble {
+  width: 80px; /* Augmente la taille des bulles */
+  height: 80px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  animation: float 4s ease-in-out infinite; /* Ajoute une animation flottante */
+}
+
+.thought-bubble img {
+  width: 60px; /* Ajuste la taille de l'image dans la bulle */
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Animation pour faire flotter les bulles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-80px); /* Ajuste pour l'effet de flottement */
+  }
+}
+ 
+.bubble-trail {
+  position: absolute;
+  bottom: -60px; /* Ajuste cette valeur en fonction de la position souhaitée */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* Espace entre les bulles */
+}
+
+
+
+.thought-bubble:nth-child(1) { background-color: pink; }
+.thought-bubble:nth-child(2) { background-color: blue; }
+.thought-bubble:nth-child(3) { background-color: green; }
+.thought-bubble:nth-child(4) { background-color: yellow; }
+.thought-bubble:nth-child(5) { background-color: red; }
+
+
+
+.card-body {
+  position: relative; /* Assurez-vous que le conteneur a une position relative */
+  z-index: 1; /* Ajoutez un z-index pour le rendre au-dessus des autres éléments */
+}
+
+
+
+
+@media (max-width: 768px) {
+   
+  .offcanvas-body .btn .bubble-content p {
+    width: 100px; /* augmenter la taille */
+    height: 100px; /* idem */
+    font-size: 1.2em; /* pour le texte */
+  }
+  .thought-container {
+    width: 100%; /* S'adapte à la largeur de l'écran */
+  }
+
+  .main-image {
+    width: 100px; /* Réduit la taille de l'image principale */
+  }
+
+  .bubble-container {
+    width: 300px; /* Réduit la largeur pour l'écran mobile */
+    flex-wrap: wrap; /* Permet aux bulles de passer à la ligne si nécessaire */
+  }
+
+  .thought-bubble {
+    width: 60px; /* Réduit la taille des bulles */
+    height: 60px;
+  }
+
+  .bubble-content {
+    font-size: 0.8rem; /* Ajuste la taille du texte */
+  }
+
+  header.container {
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+
+}

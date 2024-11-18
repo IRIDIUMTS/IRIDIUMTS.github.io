@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Mon Fan Club</title>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="index.css"/>
+  <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    
+    function togglePassword() {
+        const passwordInput = document.getElementById("exampleInputPassword1");
+        const toggleCheckbox = document.getElementById("showPassword");
+        passwordInput.type = toggleCheckbox.checked ? "text" : "password";
+    }
+
+    
+    function validatePassword(event) {
+      event.preventDefault(); 
+
+      const passwordInput = document.getElementById("exampleInputPassword1");
+      const password = passwordInput.value;
+
+        //bien le ctrl q inspercter tu t'es pris pour un hacker fdp
+      if (password === "123") {
+        window.location.href = "page/admin.html"; 
+      } else {
+
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = "HEUUU TU ES QUI ?";
+        errorMessage.classList.remove("d-none"); 
+      }
+    }
+
+    function togglePassword() {
+        const passwordInput = document.getElementById("exampleInputPassword1");
+        const toggleCheckbox = document.getElementById("showPassword");
+        passwordInput.type = toggleCheckbox.checked ? "text" : "password";
+    }
+
+    function validatePassword(event) {
+      event.preventDefault(); 
+      const passwordInput = document.getElementById("exampleInputPassword1");
+      const password = passwordInput.value;
+      if (password === "123") {
+        window.location.href = "page/admin.html"; 
+      } else {
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = "HEUUU TU ES QUI ?";
+        errorMessage.classList.remove("d-none"); 
+      }
+    }
+
+    function enlargeBubble(event) {
+      const bubble = event.currentTarget;
+      const content = bubble.querySelector(".bubble-content");
+      bubble.classList.toggle("enlarged");
+      content.style.display = bubble.classList.contains("enlarged") ? "block" : "none";
+    }
+  </script>
+  <style>
+    body {
+      background: linear-gradient( white, blue, red);
+      min-height: 100vh; 
+      margin: 0; 
+    }
+    .thought-bubble img {
+      cursor: pointer;
+      width: 80px; 
+      height: 80px; 
+    }
+    .thought-bubble {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease-in-out;
+    }
+    .thought-bubble.enlarged {
+      transform: scale(1.3);
+    }
+    .bubble-content {
+      display: none; 
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style> 
+</head>
+<body>  
+<header class="container">
+  <div class="shadow-lg w-100 p-3 fs-3 mb-2 bg-gradient rounded d-flex justify-content-center align-items-center position-relative" style="height: 100px; background-color: #00f5ff;">
+    <span class="text-gradient">MON FAN CLUB</span>
+    <button class="btn btn-primary position-absolute" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="left: 10px; background-color: #00f5ff;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M2 2h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2zm0 5h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2zm0 5h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2z"/>
+      </svg>
+    </button>
+  </div>
+  </header>
+  <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title " id="formModalLabel">WEEEEEEHHHHHH LA FAMMMMMILLLLLEE</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form onsubmit="validatePassword(event)"> 
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
+                <label class="form-check-label" for="showPassword">
+                  Pour les Dyspraxiques
+                </label>
+              </div>
+            </div>
+            <div id="error-message" class="text-danger d-none "></div> 
+            <button type="submit" class=" btn btn-primary">RENTRE VITE</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <center><h4>Mes réseaux sociaux</h4></center>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column align-items-center">
+      <button type="button" class="btn btn-index mb-3" onclick="window.location.href='index.html'" style="margin-top: 30px;">
+        Acceuil
+      </button>
+      <button type="button" class="btn btn-instagram mb-3" onclick="window.location.href='page/instagram.html'" style="margin-top: 30px;">
+        Instagram
+      </button>
+      <button type="button" class="btn btn-snapchat mb-3" onclick="window.location.href='page/snapchat.html'" style="margin-top: 30px;">
+        Snapchat
+      </button>
+      <button type="button" class="btn btn-facebook mb-3" onclick="window.location.href='page/facebook.html'" style="margin-top: 30px;">
+        Facebook
+      </button>
+      <button type="button" class="btn btn-bereal mb-3" onclick="window.location.href='page/bereal.html'" style="margin-top: 30px;">
+        BeReal
+      </button>
+      <button type="button" class="btn btn-discord mb-3" onclick="window.location.href='page/discord.html'" style="margin-top: 30px;">
+        Discord
+      </button>
+      <button type="button" class="btn btn-tiktok mb-3" onclick="window.location.href='page/tiktok.html'" style="margin-top: 30px;">
+        TikTok
+      </button>
+      <button type="button" class="btn btn-admin mb-3" data-bs-toggle="modal" data-bs-target="#formModal" style="margin-top: 30px;">
+        ⚠️Que pour les vip du vip⚠️
+      </button>
+    </div>
+  </div>
+  <main class="d-flex justify-content-center align-items-center vh-100">
+  <div class="thought-container">
+
+    <img src="image/alerte/memoji_pensif.png" alt="Personnage" class="main-image">
+    <div class="bubble-container">
+      <div id="girlBubble" class="thought-bubble" onclick="enlargeBubble(event)">
+        <img src="image/logo/girl.png" alt="Bulle 1">
+        <div class="bubble-content">
+          <p>Passe le test de beauté</p>
+          <button class="btn btn-primary" onclick="window.location.href='page/femme.html'">Aller</button>
+        </div>
+      </div>
+      <div class="thought-bubble" onclick="enlargeBubble(event)">
+        <img src="image/logo/rap.jpg" alt="Bulle 2">
+        <div class="bubble-content">
+          <p>Passe le test de musique</p>
+          <button class="btn btn-primary" onclick="window.location.href='page/rap.html'">Aller</button>
+        </div>
+      </div>
+      <div class="thought-bubble" onclick="enlargeBubble(event)">
+        <img src="image/logo/sport.jpg" alt="Bulle 3">
+        <div class="bubble-content">
+          <p>découvre mon sport</p>
+          <button class="btn btn-primary" onclick="window.location.href='page/sport.html'">Aller</button>
+        </div>
+      </div>
+      <div class="thought-bubble" onclick="enlargeBubble(event)">
+        <img src="image/logo/jeux.jpg" alt="Bulle 4">
+        <div class="bubble-content">
+          <p>Joue à mon jeu</p>
+          <button class="btn btn-primary" onclick="window.location.href='page/jeu.html'">Aller</button>
+        </div>
+      </div>
+      <div class="thought-bubble" onclick="enlargeBubble(event)">
+        <img src="image/logo/etude.jpg" alt="Bulle 5">
+        <div class="bubble-content">
+          <p>Mes études</p>
+          <button class="btn btn-primary" onclick="window.location.href='page/jeu.html'">Aller</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <title>Mon Fan Club</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../index.css"/>
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="../js.js"></script>
+    
+    <style>
+        body {
+            background: linear-gradient(white, blue, red);
+            min-height: 100vh; 
+            margin: 0; 
+        }
+
+        .encadre-degrade {
+            background: linear-gradient(to bottom, #ff99cc, #ffffff);
+            padding: 20px;
+            border: 2px solid #ff99cc;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .highlight-blonde { background-color: #FFD700; padding: 0.2em 0.5em; border-radius: 5px; }
+        .highlight-chatain-clair { background-color: #D2B48C; padding: 0.2em 0.5em; border-radius: 5px; }
+        .highlight-chatain { background-color: #A67B5B; padding: 0.2em 0.5em; border-radius: 5px; }
+        .highlight-venitien { background-color: #DDA15E; padding: 0.2em 0.5em; border-radius: 5px; }
+        .highlight-chatain-fonce { background-color: #8B4513; padding: 0.2em 0.5em; border-radius: 5px; color: white; }
+        .highlight-roux { background-color: #D2691E; padding: 0.2em 0.5em; border-radius: 5px; color: white; }
+        .highlight-brun { background-color: #4B2E2E; padding: 0.2em 0.5em; border-radius: 5px; color: white; }
+        .highlight-noir { background-color: #2F2F2F; padding: 0.2em 0.5em; border-radius: 5px; color: white; }
+        .highlight-blond-polaire { background-color: #E5E4E2; padding: 0.2em 0.5em; border-radius: 5px; color: black; }
+        .highlight-rouge { background-color: #FF0000; padding: 0.2em 0.5em; border-radius: 5px; color: white; }
+        .highlight-bleu { background-color: #1E90FF; padding: 0.2em 0.5em; border-radius: 5px; color: white; }
+        .highlight-vert { background-color: #32CD32; padding: 0.2em 0.5em; border-radius: 5px; color: white; }
+        .highlight-violet { background-color: #8A2BE2; padding: 0.2em 0.5em; border-radius: 5px; color: white; }
+    </style>
+</head>
+<body>  
+  <header class="container">
+    <div class="shadow-lg w-100 p-3 fs-3 mb-2 bg-gradient rounded d-flex justify-content-center align-items-center position-relative" style="height: 100px; background-color: #00f5ff;">
+      <span class="text-gradient">MON FAN CLUB</span>
+      <button class="btn btn-primary position-absolute" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="left: 10px; background-color: #00f5ff;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2 2h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2zm0 5h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2zm0 5h12a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="formModalLabel">WEEEEEEHHHHHH LA FAMMMMMILLLLLEE</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form onsubmit="validatePassword(event)"> 
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePassword()">
+                <label class="form-check-label" for="showPassword">Pour les Dyspraxiques</label>
+              </div>
+            </div>
+            <div id="error-message" class="text-danger d-none"></div> 
+            <button type="submit" class="btn btn-primary">RENTRE VITE</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <center><h4>Mes réseaux sociaux</h4></center>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column align-items-center">
+      <button type="button" class="btn btn-index mb-3" onclick="window.location.href='../index.html'" style="margin-top: 30px;">Acceuil</button>
+      <button type="button" class="btn btn-instagram mb-3" onclick="window.location.href='instagram.html'" style="margin-top: 30px;">Instagram</button>
+      <button type="button" class="btn btn-snapchat mb-3" onclick="window.location.href='snapchat.html'" style="margin-top: 30px;">Snapchat</button>
+      <button type="button" class="btn btn-facebook mb-3" onclick="window.location.href='facebook.html'" style="margin-top: 30px;">Facebook</button>
+      <button type="button" class="btn btn-bereal mb-3" onclick="window.location.href='bereal.html'" style="margin-top: 30px;">BeReal</button>
+      <button type="button" class="btn btn-discord mb-3" onclick="window.location.href='discord.html'" style="margin-top: 30px;">Discord</button>
+      <button type="button" class="btn btn-tiktok mb-3" onclick="window.location.href='tiktok.html'" style="margin-top: 30px;">TikTok</button>
+      <button type="button" class="btn btn-admin mb-3" data-bs-toggle="modal" data-bs-target="#formModal" style="margin-top: 30px;">⚠️Que pour les vip du vip⚠️</button>
+    </div>
+  </div>
+
+
+
+<div id="Q1" class="container mt-5 encadre-degrade">
+    <center>
+        <h5>Quel âge as-tu ?</h5>
+    </center>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <form id="ageForm">
+                <div class="form-group">
+                    <label for="ageInput">Âge</label>
+                    <input type="number" class="form-control" id="ageInput" placeholder="Entrez votre âge" required>
+                    <div id="error-message" class="text-danger mt-2" style="display: none;">
+                        Veuillez entrer un nombre entier valide entre 0 et 100.
+                    </div>
+                </div>
+                <button type="submit" id="valide_age" class="btn btn-primary mt-3">Valider</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Bootstrap pour l'alerte d'âge -->
+<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="alertModalLabel">Alerte</h5>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-danger">⚠️INTERDIT AUX MINEURES ET AUX MORT⚠️</p>
+                <img src="../image/alerte/memoji_stop.png" alt="Image d'alerte" class="img-fluid">
+                <p class="text-danger">⚠️JE SUIS NI PEDOPHILE NI NECROPHILE⚠️</p>
+            </div>
+        </div>
+    </div>
+</div>
+  <div id="Q2" class="container mt-5 encadre-degrade">
+  <center><h5>Quelle est la couleur de tes cheveux ?</h5>
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <p>Au Naturel ?</p>
+      <form id="hairColorForm">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioBlonde" value="1">
+          <label class="form-check-label highlight-blonde" for="radioBlonde">Blonde</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioChatainClair" value="0">
+          <label class="form-check-label highlight-chatain-clair" for="radioChatainClair">Châtain clair</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioChatain" value="0">
+          <label class="form-check-label highlight-chatain" for="radioChatain">Châtain</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioVenitien" value="0">
+          <label class="form-check-label highlight-venitien" for="radioVenitien">Vénitien</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioChatainFonce" value="0">
+          <label class="form-check-label highlight-chatain-fonce" for="radioChatainFonce">Châtain foncé</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioRoux" value="0">
+          <label class="form-check-label highlight-roux" for="radioRoux">Roux</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioBrun" value="0">
+          <label class="form-check-label highlight-brun" for="radioBrun">Brun</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioNoir" value="0">
+          <label class="form-check-label highlight-noir" for="radioNoir">Noir</label>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <p>Avec couleur ?</p>
+      <form id="hairColorForm">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coloredHair" id="radioBlondPolaire" value="1">
+          <label class="form-check-label highlight-blond-polaire" for="radioBlondPolaire">Blond polaire</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coloredHair" id="radioBlonde2" value="0.5">
+          <label class="form-check-label highlight-blonde" for="radioBlonde2">Blonde</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coloredHair" id="radioRouge" value="0">
+          <label class="form-check-label highlight-rouge" for="radioRouge">Rouge</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coloredHair" id="radioBleu" value="0">
+          <label class="form-check-label highlight-bleu" for="radioBleu">Bleu</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coloredHair" id="radioVert" value="0">
+          <label class="form-check-label highlight-vert" for="radioVert">Vert</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coloredHair" id="radioViolet" value="0">
+          <label class="form-check-label highlight-violet" for="radioViolet">Violet</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coloredHair" id="radioChatain2" value="0">
+          <label class="form-check-label highlight-chatain" for="radioChatain2">Châtain</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="naturalHairColor" id="radioNoir2" value="0">
+          <label class="form-check-label highlight-noir" for="radioNoir2">Noir</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coloredHair" id="radioBrun2" value="0">
+          <label class="form-check-label highlight-brun" for="radioBrun2">Brun</label>
+        </div>
+      </form>
+    </div>
+  </div>
+  </center>
+   <button type="submit" id="validateHairColor" class="btn btn-primary">Valider</button>
+</div>
+  <div id="Q3" class="container mt-5 encadre-degrade">
+    <center><h5>Quelle est la couleur de tes yeux ?</h5>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <form id="eyeColorForm">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="yeux" id="radioBleuq2" value="1" required>
+                    <label class="form-check-label highlight-bleu" for="radioBleuq2">Bleus</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="yeux" id="radioVertq2" value="0.5">
+                    <label class="form-check-label highlight-vert" for="radioVertq2">Verts</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="yeux" id="radioNoirq2" value="0">
+                    <label class="form-check-label highlight-noir" for="radioNoirq2">Noirs</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="yeux" id="radioMarronq2" value="0">
+                    <label class="form-check-label highlight-chatain" for="radioMarronq2">Marron</label>
+                </div>
+                </center>
+                <button type="submit" id="valide_yeux" class="btn btn-primary mt-3">Valider</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="Q4" class="container mt-5 encadre-degrade">
+    <center>
+        <h5>Tu mesures combien ?</h5>
+        <input type="range" class="form-range" id="heightRange" min="0" max="200" step="1" oninput="this.nextElementSibling.value = this.value / 100">
+        <output>0.00 </output>m
+    </center>
+    <button type="button" id="validateHeight" class="btn btn-primary mt-3">Valider</button>
+</div>
+
+<div id="Q5" class="container mt-5 encadre-degrade">
+    <center>
+        <h5>As-tu des tatouages visibles en tenue de soirée ?</h5>
+        <select class="form-select" id="tattooSelect">
+            <option value="0">Non</option>
+            <option value="1">Oui, un</option>
+            <option value="2">Oui, plusieurs</option>
+        </select>
+        </center>
+        <button type="button" id="validateTattoo" class="btn btn-primary mt-3">Valider</button>
+</div>
+<center>
+    <button type="button" class="btn btn-primary mt-3" id="showScoreButton">Afficher le score</button>
+</center>
+
+<!-- Modal pour afficher le score -->
+<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scoreModalLabel">Résultat de la Partie</h5>
+            </div>
+            <div class="modal-body text-center">
+                <p id="scoreText" class="font-weight-bold"></p>
+                <img id="scoreImage" src="" alt="Image de résultat" class="img-fluid">
+                <p id="note" class="font-weight-bold mt-2"></p> 
+                <p id="scoreText2" class="mt-2"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+ <footer class="text-center mt-5">
+        <p>&copy; 2024 Mon Fan Club. Tous droits réservés à moi le seul est l'unique bg.</p>
+    </footer>
+<script>
+    var note = 0;
+
+    // Gestion du formulaire pour l'âge
+    document.getElementById("ageForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const ageInput = document.getElementById("ageInput");
+        const age = Number(ageInput.value);
+        const errorMessage = document.getElementById("error-message");
+
+        if (!Number.isInteger(age) || age < 0 || ageInput.value === "") {
+            errorMessage.style.display = "block";
+            ageInput.classList.add("is-invalid");
+        } else {
+            errorMessage.style.display = "none";
+            ageInput.classList.remove("is-invalid");
+
+            if (age < 18 || age > 100) {
+                $("#alertModal").modal("show");
+            } else {
+                if (age < 28) {
+                    note += 1;
+                }
+                document.getElementById("Q1").style.background = "linear-gradient(to right, lightgreen, green)";
+                ageInput.disabled = true;
+                document.getElementById("valide_age").disabled = true;
+            }
+        }
+    });
+
+    document.getElementById("eyeColorForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        document.getElementById("Q3").style.background = "linear-gradient(to right, lightgreen, green)";
+        const selectedEyeColor = document.querySelector('input[name="yeux"]:checked');
+        if (selectedEyeColor) {
+            note += Number(selectedEyeColor.value);
+        }
+        document.getElementById("valide_yeux").disabled = true;
+    });
+
+    document.querySelector("#validateHairColor").addEventListener("click", function(event) {
+        event.preventDefault();
+        const selectedNaturalHairColor = document.querySelector('input[name="naturalHairColor"]:checked');
+        const selectedColoredHair = document.querySelector('input[name="coloredHair"]:checked');
+
+        if (selectedNaturalHairColor) {
+            note += Number(selectedNaturalHairColor.value);
+        }
+        if (selectedColoredHair) {
+            note += Number(selectedColoredHair.value);
+        }
+
+        document.getElementById("Q2").style.background = "linear-gradient(to right, lightgreen, green)";
+        document.querySelector("#validateHairColor").disabled = true;
+    });
+
+    document.getElementById("validateHeight").addEventListener("click", function() {
+        const heightValue = document.getElementById("heightRange").value;
+        const heightInMeters = heightValue / 100;
+
+        if (heightInMeters >= 1.60 && heightInMeters <= 1.75) {
+            note += 1;
+        }
+        document.getElementById("Q4").style.background = "linear-gradient(to right, lightgreen, green)";
+        document.getElementById("validateHeight").disabled = true;
+    });
+
+    document.getElementById("validateTattoo").addEventListener("click", function() {
+        const tattooSelect = document.getElementById("tattooSelect");
+        const selectedValue = parseFloat(tattooSelect.value);
+        note += selectedValue;
+
+        document.getElementById("Q5").style.background = "linear-gradient(to right, lightgreen, green)";
+        document.getElementById("validateTattoo").disabled = true;
+    });
+
+    function afficherScore(note) {
+    const scoreText = document.getElementById('scoreText');
+    const scoreImage = document.getElementById('scoreImage');
+    const scoreText2 = document.getElementById('scoreText2');
+    const score = document.getElementById('note'); 
+
+    if (note > 5) {
+        scoreText.textContent = "💗WAAAAWWWW MEUF META ULTIME !💗";
+        scoreImage.src = "../image/alerte/memoji_love.png";
+        score.textContent = "Tu as obtenu : " + note + "/5"; 
+        scoreText2.textContent = "💗Viens me DM que je t'épouse sur le champ💗";
+    } else if (note >= 3) {
+        scoreText.textContent = "❤️‍ WAAAAWWWW MEUF META !❤️‍";
+        scoreImage.src = "../image/alerte/meta.png";
+        score.textContent = "Tu as obtenu : " + note + "/5"; 
+        scoreText2.textContent = "👏Pas mal la meuf, Bravo 👏";
+    } else {
+        scoreText.textContent = "MEUF HORS META";
+        scoreImage.src = "../image/alerte/hors_meta.png";
+        score.textContent = "Tu as obtenu : " + note + "/5"; 
+        scoreText2.textContent = "T'es peut-être pas mon style de base, mais qui sait ?";
+    }
+
+    $('#scoreModal').modal('show');
+}
+
+    document.getElementById("showScoreButton").addEventListener("click", function() {
+        afficherScore(note);
+    });
+</script>
+</body>
+</html>
